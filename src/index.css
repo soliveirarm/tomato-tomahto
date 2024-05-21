@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: Inter, sans-serif;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  @apply bg-gradient-to-r from-slate-50 to-slate-100 text-white h-screen text-slate-900;
+}
