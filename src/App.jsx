@@ -2,7 +2,7 @@ import Timer from "./components/Timer"
 
 export default function App() {
   return (
-    <>
+    <div className="bg page-content">
       <header className="p-8">
         <h1 className=" font-semibold text-3xl text-center tracking-wide">
           Pomodoro Timer
@@ -21,6 +21,6 @@ export default function App() {
           Sarah Oliveira
         </a>
       </footer>
-    </>
+    </div>
   )
 }

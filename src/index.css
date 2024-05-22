@@ -6,9 +6,45 @@ html {
   font-family: Inter, sans-serif;
 }
 
-#root {
+.page-content {
   display: grid;
   grid-template-rows: auto 1fr auto;
   align-items: center;
   @apply bg-gradient-to-r from-slate-50 to-slate-100 text-white h-screen text-slate-900;
+}
+
+.btn {
+  @apply flex justify-center items-center text-3xl bg-white  w-40 h-16 rounded-lg  transition-all  hover:scale-110;
+
+  &.-focus {
+    @apply text-red-500 border-b-4 border-b-red-300;
+  }
+
+  &.-short-break {
+    @apply text-green-500 border-b-4 border-b-green-300;
+  }
+
+  &.-long-break {
+    @apply text-violet-500 border-b-4 border-b-violet-300;
+  }
+
+  &.-started {
+    @apply text-white bg-transparent border-2 border-white;
+  }
+}
+
+.bg {
+  @apply bg-gradient-to-b;
+
+  &.-focus {
+    @apply from-red-500 to-red-600;
+  }
+
+  &.-short-break {
+    @apply from-green-500 to-green-600;
+  }
+
+  &.-long-break {
+    @apply from-violet-500 to-violet-600;
+  }
 }
