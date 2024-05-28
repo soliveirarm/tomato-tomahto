@@ -5,6 +5,9 @@ import Header from "./components/Header"
 import ToggleTimerBtn from "./components/ToggleTimerBtn"
 import Timer from "./components/Timer"
 
+const focusAudio = new Audio("audio/focus.mp3")
+const breakAudio = new Audio("audio/break.mp3")
+
 let colorClasses = {
   focus: "-focus",
   shortBreak: "-short-break",
@@ -54,19 +57,23 @@ export default function App() {
         case "focus":
           if (longBreakInterval.current != 4) {
             changePhase(5, "shortBreak", "Short Break")
+            breakAudio.play()
           } else {
             changePhase(15, "longBreak", "Long Break")
+            breakAudio.play()
           }
           break
         case "shortBreak":
           changePhase(25, "focus", "Focus")
           pomodoroCount.current++
           longBreakInterval.current++
+          focusAudio.play()
           break
         case "longBreak":
           changePhase(25, "focus", "Focus")
           pomodoroCount.current++
           longBreakInterval.current = 1
+          focusAudio.play()
       }
     } else {
       clearInterval(interval)
