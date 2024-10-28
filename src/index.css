@@ -2,49 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 html {
-  font-family: Inter, sans-serif;
+  font-family: Rubik, sans-serif;
 }
 
 .page-content {
   display: grid;
   grid-template-rows: auto 1fr auto;
   align-items: center;
-  @apply bg-gradient-to-r from-slate-50 to-slate-100 text-white h-screen;
+  @apply bg-gradient-to-b from-slate-50 to-white text-slate-800 h-screen;
 }
 
 .btn {
-  @apply flex justify-center items-center text-3xl bg-white  w-40 h-16 rounded-lg  transition-all  hover:scale-110;
+  @apply flex justify-center items-center text-3xl text-white  w-40 h-16 rounded-lg  transition-all  hover:scale-110;
 
   &.-focus {
-    @apply text-red-500 border-b-4 border-b-red-300;
+    @apply bg-red-500 border-b-4 border-b-red-200;
   }
 
   &.-short-break {
-    @apply text-green-500 border-b-4 border-b-green-300;
+    @apply bg-green-500 border-b-4 border-b-green-200;
   }
 
   &.-long-break {
-    @apply text-violet-500 border-b-4 border-b-violet-300;
+    @apply bg-violet-500 border-b-4 border-b-violet-200;
   }
 
   &.-started {
-    @apply text-white bg-transparent border-2 border-white;
+    @apply bg-white border-2 shadow-inner;
+  }
+
+  &.-started.-focus {
+    @apply border-red-500 text-red-500;
+  }
+  &.-started.-short-break {
+    @apply border-green-500 text-green-500;
+  }
+  &.-started.-long-break {
+    @apply border-violet-500 text-violet-500;
   }
 }
 
-.bg {
-  @apply bg-gradient-to-b;
-
+.timer-text {
   &.-focus {
-    @apply from-red-500 to-red-600;
+    @apply text-red-500;
   }
 
   &.-short-break {
-    @apply from-green-500 to-green-600;
+    @apply text-green-500;
   }
 
   &.-long-break {
-    @apply from-violet-500 to-violet-600;
+    @apply text-violet-500;
   }
 }

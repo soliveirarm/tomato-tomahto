@@ -1,7 +1,7 @@
-# Pomodoro
+# Tomayto Tomahto
 
 - Pomodoro app made with React and Tailwind CSS
 
 ## Favicon
 
-<a target="_blank" href="https://icons8.com/icon/18102/tomato">Tomato</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+<a href="https://www.flaticon.com/free-icons/tomato" title="tomato icons">Tomato icons created by Rudiyana - Flaticon</a>
