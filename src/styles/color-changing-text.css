@@ -1,0 +1,13 @@
+.color-changing-text {
+  &.-focus {
+    @apply text-red-500 dark:text-red-400;
+  }
+
+  &.-short-break {
+    @apply text-green-500 dark:text-green-400;
+  }
+
+  &.-long-break {
+    @apply text-violet-500 dark:text-violet-400;
+  }
+}

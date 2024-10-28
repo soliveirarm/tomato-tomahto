@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react"
 
-import Header from "./components/Header"
-import Pomodoro from "./components/Pomodoro"
+import Header from "./components/Header/Header"
+import Pomodoro from "./components/Pomodoro/Pomodoro"
 import Footer from "./components/Footer"
 
-import { useToggleTimer } from "./hooks/useToggleTimer"
+import { useToggleTimerOnSpace } from "./hooks/useToggleTimerOnSpace"
 
 const focusAudio = new Audio("audio/focus.mp3")
 const breakAudio = new Audio("audio/break.mp3")
@@ -14,6 +14,7 @@ const colorClasses = {
   shortBreak: "-short-break",
   longBreak: "-long-break",
 }
+
 let color = colorClasses.focus
 
 export default function App() {
@@ -48,8 +49,10 @@ export default function App() {
 
   const resetCounter = () => setPomodoroCounter(1)
 
+  const incrementCounter = () => setPomodoroCounter((current) => current + 1)
+
   // useEffects/hooks
-  useToggleTimer({ toggleTimer })
+  useToggleTimerOnSpace({ toggleTimer })
 
   useEffect(() => {
     localStorage.tt_pomo_count = pomodoroCounter
@@ -63,9 +66,7 @@ export default function App() {
         if (seconds === 0) {
           setMinutes(minutes - 1)
           setSeconds(59)
-        } else {
-          setSeconds(seconds - 1)
-        }
+        } else setSeconds(seconds - 1)
       }, 1000)
     } else if (minutes === 0 && seconds === 0) {
       switch (phase) {
@@ -79,13 +80,13 @@ export default function App() {
           break
         case "shortBreak":
           changePhase(25, "focus", "Focus")
-          setPomodoroCounter((current) => current + 1)
+          incrementCounter()
           longBreakInterval.current++
           focusAudio.play()
           break
         case "longBreak":
           changePhase(25, "focus", "Focus")
-          setPomodoroCounter((current) => current + 1)
+          incrementCounter()
           longBreakInterval.current = 1
           focusAudio.play()
       }

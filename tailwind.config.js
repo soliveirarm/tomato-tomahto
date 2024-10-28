@@ -2,7 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      borderWidth: {
+        3: "3px",
+      },
+    },
   },
   plugins: [],
+  darkMode: "selector",
 }
