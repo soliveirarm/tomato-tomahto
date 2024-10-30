@@ -7,7 +7,8 @@ export default function ToggleTimer({ onClick, started, color }) {
       className={`toggle-timer ${color} ${started ? "-started" : ""}`}
       onClick={onClick}
     >
-      {started ? <LuPause /> : <LuPlay />}
+      {started && <LuPause />}
+      {!started && <LuPlay />}
     </button>
   )
 }

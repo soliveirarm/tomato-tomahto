@@ -2,7 +2,10 @@ import { LuMoon, LuSunMedium } from "react-icons/lu"
 
 export default function DarkModeToggle() {
   const toggleMode = () => {
-    document.querySelector("html").classList.toggle("dark")
+    const html = document.querySelector("html")
+    html.classList.toggle("dark")
+    if (html.classList.contains("dark")) localStorage.tt_dark_mode = "enabled"
+    else localStorage.removeItem("tt_dark_mode")
   }
 
   return (

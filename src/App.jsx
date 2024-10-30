@@ -26,6 +26,7 @@ export default function App() {
   const [pomodoroCounter, setPomodoroCounter] = useState(
     +localStorage.tt_pomo_count || 1
   )
+  const [resetMenu, setResetMenu] = useState(false)
 
   // Refs
   const longBreakInterval = useRef(1)
@@ -47,12 +48,38 @@ export default function App() {
     color = colorClasses[phase]
   }
 
-  const resetCounter = () => setPomodoroCounter(1)
-
+  const resetCounter = () => {
+    setPomodoroCounter(1)
+    setResetMenu(false)
+  }
   const incrementCounter = () => setPomodoroCounter((current) => current + 1)
+
+  const skipPhase = () => {
+    if (phase === "focus") {
+      if (longBreakInterval.current != 4) {
+        changePhase(5, "shortBreak", "Short Break")
+      } else {
+        changePhase(15, "longBreak", "Long Break")
+      }
+    } else if (phase === "shortBreak") {
+      changePhase(25, "focus", "Focus")
+      incrementCounter()
+      longBreakInterval.current++
+    } else if (phase === "longBreak") {
+      changePhase(25, "focus", "Focus")
+      incrementCounter()
+      longBreakInterval.current = 1
+    }
+    setSeconds(0)
+  }
 
   // useEffects/hooks
   useToggleTimerOnSpace({ toggleTimer })
+
+  useEffect(() => {
+    if (localStorage.tt_dark_mode)
+      document.querySelector("html").classList.add("dark")
+  }, [])
 
   useEffect(() => {
     localStorage.tt_pomo_count = pomodoroCounter
@@ -112,6 +139,10 @@ export default function App() {
         toggleTimer={toggleTimer}
         counter={pomodoroCounter}
         resetCounter={resetCounter}
+        skipPhase={skipPhase}
+        openResetCounterMenu={() => setResetMenu(true)}
+        menuIsOpen={resetMenu}
+        closeMenu={() => setResetMenu(false)}
       />
       <Footer />
     </div>
