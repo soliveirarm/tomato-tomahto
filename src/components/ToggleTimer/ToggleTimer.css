@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+.toggle-timer {
+  @apply flex justify-center items-center text-3xl border-2 bg-white shadow-xl border-b-6 border-b-gray-200 text-white w-40 h-16 rounded-lg transition-all hover:scale-110;
+
+  &.-started {
+    @apply bg-transparent shadow-inner border-2 border-b-2 border-b-white;
+  }
+}
+
+.toggle-timer > .icon {
+  &.-focus {
+    @apply text-red-500;
+  }
+  &.-short-break {
+    @apply text-green-500;
+  }
+  &.-long-break {
+    @apply text-violet-500;
+  }
+}
+
+.toggle-timer.-started > .icon {
+  @apply text-white;
+}

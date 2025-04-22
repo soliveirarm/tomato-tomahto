@@ -1,4 +1,4 @@
-# Tomayto Tomahto
+# Tomato Tomahto
 
 - Pomodoro app made with React and Tailwind CSS
 

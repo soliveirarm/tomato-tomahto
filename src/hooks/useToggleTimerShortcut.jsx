@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-export function useToggleTimerOnSpace({ toggleTimer }) {
+export const useToggleTimerShortcut = ({ toggleTimer }) => {
   useEffect(() => {
     const keyUpHandler = (e) => {
       if (e.key === " ") toggleTimer()

@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from "react"
 
-import Header from "./components/Header/Header"
-import Pomodoro from "./components/Pomodoro/Pomodoro"
-import Footer from "./components/Footer"
+import { Header } from "./components/Header"
+import { Main } from "./components/Main"
+import { Footer } from "./components/Footer"
 
-import { useToggleTimerOnSpace } from "./hooks/useToggleTimerOnSpace"
+import { PhaseTitle } from "./components/PhaseTitle"
+import { Timer } from "./components/Timer"
+import { ToggleTimer } from "./components/ToggleTimer/ToggleTimer"
+import { SkipPhase } from "./components/SkipPhase"
+import { PomodoroCounter } from "./components/PomodoroCounter"
+import { ResetCounterMenu } from "./components/ResetCounterMenu"
+
+import { useToggleTimerShortcut } from "./hooks/useToggleTimerShortcut"
 
 const focusAudio = new Audio("audio/focus.mp3")
 const breakAudio = new Audio("audio/break.mp3")
@@ -17,7 +24,7 @@ const colorClasses = {
 
 let color = colorClasses.focus
 
-export default function App() {
+export const App = () => {
   // States
   const [phase, setPhase] = useState("focus")
   const [minutes, setMinutes] = useState(25)
@@ -74,12 +81,7 @@ export default function App() {
   }
 
   // useEffects/hooks
-  useToggleTimerOnSpace({ toggleTimer })
-
-  useEffect(() => {
-    if (localStorage.tt_dark_mode)
-      document.querySelector("html").classList.add("dark")
-  }, [])
+  useToggleTimerShortcut({ toggleTimer })
 
   useEffect(() => {
     localStorage.tt_pomo_count = pomodoroCounter
@@ -129,21 +131,27 @@ export default function App() {
   }, [timerStarted, minutes, seconds, phase, formattedTime])
 
   return (
-    <div className="page-content">
+    <div className={`page-content ${color}`}>
       <Header />
-      <Pomodoro
-        color={color}
-        phaseTitle={phaseTitle.current}
-        timer={formattedTime}
-        started={timerStarted}
-        toggleTimer={toggleTimer}
-        counter={pomodoroCounter}
-        resetCounter={resetCounter}
-        skipPhase={skipPhase}
-        openResetCounterMenu={() => setResetMenu(true)}
-        menuIsOpen={resetMenu}
-        closeMenu={() => setResetMenu(false)}
-      />
+      <Main>
+        <PhaseTitle title={phaseTitle.current} />
+        <Timer timer={formattedTime} />
+        <ToggleTimer
+          started={timerStarted}
+          onClick={toggleTimer}
+          color={color}
+        />
+        <SkipPhase skipPhase={skipPhase} />
+        <PomodoroCounter
+          counter={pomodoroCounter}
+          openResetCounterMenu={() => setResetMenu(true)}
+        />
+        <ResetCounterMenu
+          resetCounter={resetCounter}
+          menuIsOpen={resetMenu}
+          closeMenu={() => setResetMenu(false)}
+        />
+      </Main>
       <Footer />
     </div>
   )
