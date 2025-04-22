@@ -4,14 +4,13 @@ import { Header } from "./components/Header"
 import { Main } from "./components/Main"
 import { Footer } from "./components/Footer"
 
-import { PhaseTitle } from "./components/PhaseTitle"
-import { Timer } from "./components/Timer"
 import { ToggleTimer } from "./components/ToggleTimer/ToggleTimer"
 import { SkipPhase } from "./components/SkipPhase"
 import { PomodoroCounter } from "./components/PomodoroCounter"
 import { ResetCounterMenu } from "./components/ResetCounterMenu"
 
 import { useToggleTimerShortcut } from "./hooks/useToggleTimerShortcut"
+import { useLocalStorage } from "@uidotdev/usehooks"
 
 const focusAudio = new Audio("audio/focus.mp3")
 const breakAudio = new Audio("audio/break.mp3")
@@ -30,8 +29,9 @@ export const App = () => {
   const [minutes, setMinutes] = useState(25)
   const [seconds, setSeconds] = useState(0)
   const [timerStarted, setTimerStarted] = useState(false)
-  const [pomodoroCounter, setPomodoroCounter] = useState(
-    +localStorage.tt_pomo_count || 1
+  const [pomodoroCounter, setPomodoroCounter] = useLocalStorage(
+    "tt_pomo_count",
+    1
   )
   const [resetMenu, setResetMenu] = useState(false)
 
@@ -84,10 +84,6 @@ export const App = () => {
   useToggleTimerShortcut({ toggleTimer })
 
   useEffect(() => {
-    localStorage.tt_pomo_count = pomodoroCounter
-  }, [pomodoroCounter])
-
-  useEffect(() => {
     let interval
 
     if (timerStarted && (seconds > 0 || minutes > 0)) {
@@ -134,8 +130,8 @@ export const App = () => {
     <div className={`page-content ${color}`}>
       <Header />
       <Main>
-        <PhaseTitle title={phaseTitle.current} />
-        <Timer timer={formattedTime} />
+        <h2 className="capitalize text-2xl">{phaseTitle.current}</h2>
+        <p className="text-7xl font-medium text-center">{formattedTime}</p>
         <ToggleTimer
           started={timerStarted}
           onClick={toggleTimer}
@@ -152,6 +148,7 @@ export const App = () => {
           closeMenu={() => setResetMenu(false)}
         />
       </Main>
+
       <Footer />
     </div>
   )

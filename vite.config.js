@@ -15,7 +15,7 @@ export default defineConfig({
       },
       manifest: {
         name: "Tomato Tomahto",
-        short_name: "Pomodoro",
+        short_name: "Tomato Tomahto",
         icons: [
           {
             src: "/pwa-192x192.png",
